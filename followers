@@ -4,7 +4,7 @@
 <%- include('../partials/head.ejs', {page: user.name+" - followers", vue: true, profile:true, username:user.name, userid:user._id}); %>
 
 
-<body class='bg-gray-100'>
+<body class='bg-black-100'>
     <%- include('../partials/nav.ejs', {active: "user_followers_"+user.name, user:loggedInUser, loggedIn}); %>
     <div id='data' class='hidden'>
         <% if(loggedIn){ %>
