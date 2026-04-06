@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs', {page: "404"}); %>
+
+<body class='bg-black-100'>
+    <%- include('../partials/nav.ejs', {active: "404", user, loggedIn}); %>
+
+    <main class='container mx-auto px-4 mt-28 md:mt-16'>
+        <h1>404</h1>
+        <p>Unfortunately, this page isn't found.</p>
+    </main>
+</body>
+
+<%- include('../partials/scripts.ejs'); %>
+
+</html>
