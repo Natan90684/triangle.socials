@@ -1,0 +1,56 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>triangle.socials<%= page? ' | '+page: '' %></title>
+    <meta property="og:title" content="triangle.socials<%= page? ' | '+page: '' %>" />
+    <link rel="icon" href="/assets/images/brand/logo-full.svg">
+    <meta property="og:site_name" content="triangle.socials" />
+    <meta name="theme-color" content="#FFA500">
+
+    <% if(locals.profile) { %>
+    <meta property="og:type" content="profile">
+    <meta property="profile:username" content="<%= username %>">
+    <meta property="og:image" content="https://dev.triangle.socials/picture/<%= userid %>?timestamp=<%= Date.now() %>"> <!-- change this to remove dev url when released -->
+    <meta content="Sample bio." property="og:description"> <!-- in the future, this should show the users bio if its a profile -->
+    <% } else { %>
+    <meta content="Triangle,a social media where you can connect with people!" property="og:description">
+    <% } %>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <% if(locals.vue) { %>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <% } %>
+    
+    <% if(locals.croppie) { %>
+    <script src="https://cdn.jsdelivr.net/npm/croppie@2.6.5/croppie.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/croppie@2.6.5/croppie.css">
+    <% } %>
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #dadada;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #202733;
+        }
+
+        [v-cloak] > * { display:none; }
+        /* [v-cloak]::before { content: "Loading..."; } */    
+    </style>
+</head>

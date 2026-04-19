@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs', {page: "join"}); %>
+
+
+<body class='bg-black-100'>
+    <%- include('../partials/nav.ejs', {active: "join", user, loggedIn}); %>
+    <!--
+  Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
+  Read the documentation to get started: https://tailwindui.com/documentation
+-->
+    <div class="min-h-screen flex items-center justify-center bg-black-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full">
+            <div>
+                <img class="mx-auto h-40 w-auto" src="/assets/images/brand/logo-full.svg"
+                    alt="triangle.socials">
+                <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+                    Join the club
+                </h2>
+                <p class="mt-2 text-center text-sm leading-5 text-gray-500">
+                    Or
+                    <a href="/login"
+                        class="font-medium text-orange-500 hover:text-orange-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        Enjoy the site, log in.
+                    </a>
+                </p>
+            </div>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-5 rounded relative" style="display: none;" id='alert' role="alert">
+                <strong class="font-bold">Error signing up!</strong>
+                <span class="block sm:inline" id='msg'>Something seriously bad happened.</span>
+              </div>
+            <form class="mt-8" id='form'>
+                <input type="hidden" name="remember" value="true">
+                <div class="rounded-md shadow-sm">
+                    <div>
+                        <input aria-label="Username" id='username' name="username" type="text" required
+                            oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9_-]/, '');"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                            placeholder="Username">
+                    </div>
+                    <div class="-mt-px">
+                        <input aria-label="Password" id='password' name="password" type="password" required
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                            placeholder="Password">
+                    </div>
+                </div>
+<!-- 
+                <div class="mt-6 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember_me" type="checkbox"
+                            class="form-checkbox h-4 w-4 text-indigo-500 transition duration-150 ease-in-out">
+                        <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <div class="text-sm leading-5">
+                        <a href="#"
+                            class="font-medium text-indigo-500 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                            Forgot your password?
+                        </a>
+                    </div>
+                </div>
+ -->
+                <div class="mt-6">
+                    <button type="submit"
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                        Sign up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<%- include('../partials/scripts.ejs'); %>
+
+<script>
+    var form = document.getElementById('form')
+    form.addEventListener('submit', e => {
+        e.preventDefault()
+        var username = document.getElementById('username').value
+        var password = document.getElementById('password').value
+
+        signup(username, password)
+    })
+
+    async function signup(username, password) {
+        var res = await fetch('/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+        var data = await res.json()
+        if (data.ok) {
+            document.location.href = '/'
+        } else {
+            document.getElementById('alert').style.display = 'block'
+            document.getElementById('msg').innerText = data.error
+        }
+    }
+</script>
+
+</html>
